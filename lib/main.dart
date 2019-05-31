@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
-import './product_manager.dart';
-import './counter.dart';
+import './pages/home.dart';
 
 // Instantiate the Main AppClass
 void main() => runApp(MyApp());
@@ -14,14 +13,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.purple,
         ),
-        home: Scaffold(
-          appBar: AppBar(
-            title: Text('Purple Solutions'),
-          ),
-          body: Column(children: [
-            CounterManager(),
-            ProductManager('Food Tester'),
-          ]),
-        ));
+        home: HomePage(),
+    );
   }
 }
