@@ -10,10 +10,7 @@ class HomePage extends StatelessWidget {
           appBar: AppBar(
             title: Text('Purple Solutions'),
           ),
-          body: Column(children: [
-            CounterManager(),
-            ProductManager('Food Tester'),
-          ]),
+          body: ProductManager(),
         );
   }
 }
