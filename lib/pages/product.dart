@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 
 class ProductPage extends StatelessWidget {
   final Map product;
+  final int index;
 
-  ProductPage(this.product);
+  ProductPage(this.product, this.index);
 
   @override
   Widget build(BuildContext context) {
@@ -17,9 +18,9 @@ class ProductPage extends StatelessWidget {
           Image.asset(product['image']),
           Container(padding: EdgeInsets.all(10.0), child: Text('Details!')),
           RaisedButton(
-            child: Text('BACK'),
-            color: Theme.of(context).primaryColorDark,
-            onPressed: () => Navigator.pop(context),
+            child: Text('Delete!'),
+            color: Colors.red,
+            onPressed: () => Navigator.pop(context, index),
           )
         ],
       ),
