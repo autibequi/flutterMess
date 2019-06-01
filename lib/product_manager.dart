@@ -4,12 +4,6 @@ import './products.dart';
 import './product_control.dart';
 
 class ProductManager extends StatefulWidget {
-  final String startingProduct;
-
-  ProductManager({String this.startingProduct = "hue"}) {
-    print('[ProductManager Widget] Constructor');
-  }
-
   @override
   State<StatefulWidget> createState() {
     print('[ProductManager Widget] createState()');
@@ -18,14 +12,17 @@ class ProductManager extends StatefulWidget {
 }
 
 class _ProductManagerState extends State<ProductManager> {
-  List<String> _products = [];
+  List<Map> _products = [];
 
   @override
   void initState() {
     print('[ProductManager State] initState()');
-    if (widget.startingProduct != null) {
-      _products.add(widget.startingProduct);
-    }
+    var product = {
+      'image': 'assets/food.jpg',
+      'title': 'Chocolate',
+    };
+    _products.add(product);
+
     super.initState();
   }
 
@@ -35,8 +32,12 @@ class _ProductManagerState extends State<ProductManager> {
     super.didUpdateWidget(oldWidget);
   }
 
-  void _addProduct(String product) {
+  void _addProduct(String productName) {
     setState(() {
+      var product = {
+        'image': 'assets/food.jpg',
+        'title': productName,
+      };
       _products.add(product);
     });
   }
