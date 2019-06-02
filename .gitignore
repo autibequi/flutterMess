@@ -8,6 +8,9 @@
 .buildlog/
 .history
 .svn/
+*.project
+*.prefs
+*.xcsettings
 
 # IntelliJ related
 *.iml
