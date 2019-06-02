@@ -43,6 +43,7 @@ class ProductPage extends StatelessWidget {
                               FlatButton(
                                 child: Text('Keep'),
                                 onPressed: () {
+                                  Navigator.pop(dcontext);
                                   Navigator.pop(dcontext, true);
                                 },
                               )
