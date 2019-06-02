@@ -13,19 +13,13 @@ class DrawerManager extends StatelessWidget {
           ListTile(
               title: Text('Manage Products'),
               onTap: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (BuildContext context) => ProductAdminPage()));
+                Navigator.pushNamed(context, 'productAdmin');
               }),
           ListTile(
               title: Text('List Products'),
               onTap: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (BuildContext context) => ProductsPage()));
-              })
+                Navigator.pushNamed(context, 'productList');
+              }),
         ],
       ),
     );
