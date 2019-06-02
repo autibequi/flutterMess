@@ -24,10 +24,32 @@ class ProductPage extends StatelessWidget {
               Image.asset(product['image']),
               Container(padding: EdgeInsets.all(10.0), child: Text('Details!')),
               RaisedButton(
-                child: Text('Delete!'),
-                color: Colors.red,
-                onPressed: () => Navigator.pop(context, true),
-              )
+                  child: Text('Delete!'),
+                  color: Colors.red,
+                  onPressed: () {
+                    showDialog(
+                        context: context,
+                        builder: (BuildContext dcontext) {
+                          return AlertDialog(
+                            title: Text('really?'),
+                            content: Text('This action cant be undone'),
+                            actions: <Widget>[
+                              FlatButton(
+                                child: Text('Discart'),
+                                onPressed: () {
+                                  Navigator.pop(dcontext);
+                                },
+                              ),
+                              FlatButton(
+                                child: Text('Keep'),
+                                onPressed: () {
+                                  Navigator.pop(dcontext, true);
+                                },
+                              )
+                            ],
+                          );
+                        });
+                  })
             ],
           ),
         ));
