@@ -4,7 +4,6 @@ import 'package:flutter_mess/product_manager.dart';
 import './drawer.dart';
 
 import './product_create.dart';
-import './products.dart';
 
 class ProductAdminPage extends StatelessWidget {
   @override
@@ -31,7 +30,7 @@ class ProductAdminPage extends StatelessWidget {
           body: TabBarView(
             children: <Widget>[
               ProductCreatePage(),
-              ProductManager(),
+              ProductCreatePage(),
             ],
           ),
         ));
