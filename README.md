@@ -5,11 +5,11 @@ a messy flutter project
 ## Setup
 
 1. Install Flutter
-    a. Add flutter bin to PATH
+    * Add flutter bin to PATH
 2. Install Android SDK
-    a. Create a Device Emulator
+    * Create a Device Emulator
 3. Download VSCode
-    a. Install Plugins
+    * Install Plugins
 
 ## Getting Started
 
