@@ -3,6 +3,10 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 
 class ProductCreatePage extends StatefulWidget {
+  final Function addProduct;
+
+  ProductCreatePage(this.addProduct);
+
   @override
   _ProductCreatePageState createState() => _ProductCreatePageState();
 }
@@ -64,7 +68,15 @@ class _ProductCreatePageState extends State<ProductCreatePage> {
               child: Text('Submit'),
               onPressed: () {
                 // TODO: Add new Product
+                Map newProduct = {
+                  'title': title,
+                  'description': description,
+                  'price': price,
+                  'image': 'assets/food.jpg',
+                };
+                widget.addProduct(newProduct);
                 // TODO: Go to Listing
+                Navigator.pushReplacementNamed(context, 'productList');
               },
             )
           ],

@@ -18,18 +18,16 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   List<Map> _products = [];
 
-  void _addProduct(String productName) {
+  void _addProduct(Map product) {
     setState(() {
-      var product = {
-        'image': 'assets/food.jpg',
-        'title': productName,
-      };
       _products.add(product);
     });
   }
 
   void _deleteProduct(int index) {
-    _products.removeAt(index);
+    setState(() {
+      _products.removeAt(index);
+    });
   }
 
   @override
@@ -42,11 +40,11 @@ class _MyAppState extends State<MyApp> {
       routes: {
         'productList': (BuildContext context) =>
             ProductsPage(_products, _addProduct, _deleteProduct),
-        'productAdmin': (BuildContext context) => ProductAdminPage(),
+        'productAdmin': (BuildContext context) => ProductAdminPage(_addProduct),
       },
       onUnknownRoute: (RouteSettings settings) {
         return MaterialPageRoute(
-            builder: (BuildContext context) => ProductAdminPage());
+            builder: (BuildContext context) => ProductAdminPage(_addProduct));
       },
       onGenerateRoute: (RouteSettings settings) {
         final List<String> pathElements = settings.name.split('/');
