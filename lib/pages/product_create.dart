@@ -83,7 +83,6 @@ class _ProductCreatePageState extends State<ProductCreatePage> {
               color: Theme.of(context).primaryColor,
               child: Text('Submit'),
               onPressed: () {
-                // TODO: Add new Product
                 Map newProduct = {
                   'title': title,
                   'description': description,
@@ -91,7 +90,6 @@ class _ProductCreatePageState extends State<ProductCreatePage> {
                   'image': 'assets/food.jpg',
                 };
                 widget.addProduct(newProduct);
-                // TODO: Go to Listing
                 Navigator.pushReplacementNamed(context, 'productList');
               },
             )
