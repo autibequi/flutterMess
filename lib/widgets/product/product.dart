@@ -1,20 +1,5 @@
 import 'package:flutter/material.dart';
 
-class ProductManager extends StatelessWidget {
-  final List<Map> products;
-  final Function deleteProduct;
-
-  ProductManager(this.products, this.deleteProduct);
-
-  @override
-  Widget build(BuildContext context) {
-    print('[ProductManager State] build()');
-    return Column(
-      children: [Expanded(child: Products(products, deleteProduct))],
-    );
-  }
-}
-
 class Products extends StatelessWidget {
   final List<Map> products;
   final Function deleteProduct;
@@ -66,15 +51,20 @@ class Products extends StatelessWidget {
           ButtonBar(
             alignment: MainAxisAlignment.center,
             children: <Widget>[
-              FlatButton(
-                  child: Text('Details'),
+              IconButton(
+                  icon: Icon(Icons.info),
                   onPressed: () => Navigator.pushNamed<bool>(
                               context, '/product/' + index.toString())
                           .then((bool value) {
                         if (value) {
                           deleteProduct(index);
                         }
-                      }))
+                      })),
+              IconButton(
+                color: Colors.red,
+                icon: Icon(Icons.favorite_border),
+                onPressed: () => {},
+              ),
             ],
           ),
         ],

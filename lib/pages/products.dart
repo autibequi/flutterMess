@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../product_manager.dart';
+import '../widgets/product/product.dart';
 import '../components/drawer.dart';
 
 class ProductsPage extends StatelessWidget {
@@ -16,7 +16,7 @@ class ProductsPage extends StatelessWidget {
       appBar: AppBar(
         title: Text('Purple Solutions'),
       ),
-      body: ProductManager(products, deleteProduct),
+      body: Products(products, deleteProduct),
     );
   }
 }

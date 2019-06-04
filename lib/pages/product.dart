@@ -16,6 +16,13 @@ class ProductPage extends StatelessWidget {
         },
         child: Scaffold(
           appBar: AppBar(
+            actions: <Widget>[
+              IconButton(
+                onPressed: () => {},
+                color: Colors.red,
+                icon: Icon(Icons.favorite),
+              )
+            ],
             title: Text(product['title']),
           ),
           body: Column(
