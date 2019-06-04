@@ -19,9 +19,9 @@ class ProductCreatePage extends StatefulWidget {
 }
 
 class _ProductCreatePageState extends State<ProductCreatePage> {
-  String title;
-  String description;
-  double price;
+  Map newProduct = {
+    'image': 'assets/food.jpg',
+  };
   bool isCool = false;
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
@@ -34,9 +34,7 @@ class _ProductCreatePageState extends State<ProductCreatePage> {
           }
         },
         onSaved: (String value) {
-          setState(() {
-            title = value;
-          });
+          newProduct['title'] = value;
         });
   }
 
@@ -52,9 +50,7 @@ class _ProductCreatePageState extends State<ProductCreatePage> {
           }
         },
         onSaved: (String value) {
-          setState(() {
-            description = value;
-          });
+          newProduct['description'] = value;
         });
   }
 
@@ -71,9 +67,7 @@ class _ProductCreatePageState extends State<ProductCreatePage> {
           }
         },
         onSaved: (String value) {
-          setState(() {
-            price = double.parse(value);
-          });
+          newProduct['price'] = double.parse(value);
         });
   }
 
@@ -81,9 +75,7 @@ class _ProductCreatePageState extends State<ProductCreatePage> {
     return SwitchListTile(
       value: isCool,
       onChanged: (bool value) {
-        setState(() {
-          isCool = value;
-        });
+        newProduct['isCool'] = value;
       },
       title: Text('is it cool?'),
     );
@@ -91,38 +83,37 @@ class _ProductCreatePageState extends State<ProductCreatePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-        padding: EdgeInsets.all(10.0),
-        child: Form(
-            key: _formKey,
-            child: ListView(
-              children: <Widget>[
-                _buildProductNameField(),
-                _buildProductDescriptionField(),
-                _buildProductPriceField(),
-                _buildIsItCoolSwitch(),
-                SizedBox(
-                  height: 20.0,
-                ),
-                RaisedButton(
-                  color: Theme.of(context).primaryColor,
-                  child: Text('Submit'),
-                  onPressed: () {
-                    if (!_formKey.currentState.validate()) {
-                      return; // stops if validation is false
-                    }
-                    _formKey.currentState.save();
-                    Map newProduct = {
-                      'title': title,
-                      'description': description,
-                      'price': price,
-                      'image': 'assets/food.jpg',
-                    };
-                    widget.addProduct(newProduct);
-                    Navigator.pushReplacementNamed(context, 'productList');
-                  },
-                )
-              ],
-            )));
+    return GestureDetector(
+        onTap: () {
+          FocusScope.of(context).requestFocus(FocusNode());
+        },
+        child: Container(
+            padding: EdgeInsets.all(10.0),
+            child: Form(
+                key: _formKey,
+                child: ListView(
+                  children: <Widget>[
+                    _buildProductNameField(),
+                    _buildProductDescriptionField(),
+                    _buildProductPriceField(),
+                    _buildIsItCoolSwitch(),
+                    SizedBox(
+                      height: 20.0,
+                    ),
+                    RaisedButton(
+                      color: Theme.of(context).primaryColor,
+                      child: Text('Submit'),
+                      onPressed: () {
+                        if (!_formKey.currentState.validate()) {
+                          return; // stops if validation is false
+                        }
+                        _formKey.currentState.save();
+
+                        widget.addProduct(newProduct);
+                        Navigator.pushReplacementNamed(context, 'productList');
+                      },
+                    )
+                  ],
+                ))));
   }
 }
