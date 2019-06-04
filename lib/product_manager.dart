@@ -31,9 +31,10 @@ class Products extends StatelessWidget {
             child: Text(
               products[index]['title'],
               style: TextStyle(
-                  fontSize: 26.0,
-                  fontWeight: FontWeight.bold,
-                  fontFamily: 'remachine'), // TODO: make it works!
+                fontSize: 26.0,
+                fontWeight: FontWeight.bold,
+                // fontFamily: 'remachine'
+              ),
             ),
           ),
           Text(products[index]['description']),
