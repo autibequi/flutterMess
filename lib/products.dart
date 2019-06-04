@@ -12,8 +12,18 @@ class Products extends StatelessWidget {
     return Card(
       child: Column(
         children: <Widget>[
-          Text(products[index]['title']),
           Image.asset(products[index]['image']),
+          Container(
+            padding: EdgeInsets.all(10.0),
+            child: Text(
+              products[index]['title'],
+              style: TextStyle(
+                  fontSize: 26.0,
+                  fontWeight: FontWeight.bold,
+                  fontFamily: 'remachine'), // TODO: make it works!
+            ),
+          ),
+          Text(products[index]['description']),
           ButtonBar(
             alignment: MainAxisAlignment.center,
             children: <Widget>[
