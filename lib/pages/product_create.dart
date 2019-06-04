@@ -17,49 +17,65 @@ class _ProductCreatePageState extends State<ProductCreatePage> {
   double price;
   bool isCool = false;
 
+  Widget _buildProductNameField() {
+    return TextField(
+      decoration: InputDecoration(labelText: 'Product Name'),
+      onChanged: (String value) {
+        setState(() {
+          title = value;
+        });
+      },
+    );
+  }
+
+  Widget _buildProductDescriptionField() {
+    return TextField(
+      decoration: InputDecoration(
+        labelText: 'Product Description',
+      ),
+      maxLines: 4,
+      onChanged: (String value) {
+        setState(() {
+          description = value;
+        });
+      },
+    );
+  }
+
+  Widget _buildProductPriceField() {
+    return TextField(
+      decoration: InputDecoration(labelText: 'Product Price'),
+      keyboardType: TextInputType.number,
+      onChanged: (String value) {
+        setState(() {
+          price = double.parse(value);
+        });
+      },
+    );
+  }
+
+  Widget _buildIsItCoolSwitch() {
+    return SwitchListTile(
+      value: isCool,
+      onChanged: (bool value) {
+        setState(() {
+          isCool = value;
+        });
+      },
+      title: Text('is it cool?'),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
         padding: EdgeInsets.all(10.0),
         child: ListView(
           children: <Widget>[
-            TextField(
-              decoration: InputDecoration(labelText: 'Product Name'),
-              onChanged: (String value) {
-                setState(() {
-                  title = value;
-                });
-              },
-            ),
-            TextField(
-              decoration: InputDecoration(
-                labelText: 'Product Description',
-              ),
-              maxLines: 4,
-              onChanged: (String value) {
-                setState(() {
-                  description = value;
-                });
-              },
-            ),
-            TextField(
-              decoration: InputDecoration(labelText: 'Product Price'),
-              keyboardType: TextInputType.number,
-              onChanged: (String value) {
-                setState(() {
-                  price = double.parse(value);
-                });
-              },
-            ),
-            SwitchListTile(
-              value: isCool,
-              onChanged: (bool value) {
-                setState(() {
-                  isCool = value;
-                });
-              },
-              title: Text('is it cool?'),
-            ),
+            _buildProductNameField(),
+            _buildProductDescriptionField(),
+            _buildProductPriceField(),
+            _buildIsItCoolSwitch(),
             SizedBox(
               height: 20.0,
             ),
