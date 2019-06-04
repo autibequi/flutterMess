@@ -39,7 +39,7 @@ class _MyAppState extends State<MyApp> {
       home: AuthPage(),
       routes: {
         'productList': (BuildContext context) =>
-            ProductsPage(_products, _addProduct, _deleteProduct),
+            ProductsPage(_products, _deleteProduct),
         'productAdmin': (BuildContext context) => ProductAdminPage(_addProduct),
       },
       onUnknownRoute: (RouteSettings settings) {

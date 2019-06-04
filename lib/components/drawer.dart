@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
 
-import './product_admin.dart';
-import './products.dart';
-
 class DrawerManager extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
