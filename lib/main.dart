@@ -40,11 +40,11 @@ class _MyAppState extends State<MyApp> {
       routes: {
         'productList': (BuildContext context) =>
             ProductsPage(_products, _deleteProduct),
-        'productAdmin': (BuildContext context) => ProductAdminPage(_addProduct),
+        'productAdmin': (BuildContext context) => ProductAdminPage(_addProduct, _products),
       },
       onUnknownRoute: (RouteSettings settings) {
         return MaterialPageRoute(
-            builder: (BuildContext context) => ProductAdminPage(_addProduct));
+            builder: (BuildContext context) => ProductAdminPage(_addProduct, _products));
       },
       onGenerateRoute: (RouteSettings settings) {
         final List<String> pathElements = settings.name.split('/');

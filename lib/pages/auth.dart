@@ -12,6 +12,7 @@ class _AuthPageState extends State<AuthPage> {
   String _passwordValue;
   bool _acceptTerms = false;
 
+  //TODO: ADD VALIDATION TO THIS FORM.
   @override
   Widget build(BuildContext context) {
     return Scaffold(
