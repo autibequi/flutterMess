@@ -24,6 +24,12 @@ class _MyAppState extends State<MyApp> {
     });
   }
 
+  void _updateProduct(int index, Map product) {
+    setState(() {
+      _products[index] = product;
+    });
+  }
+
   void _deleteProduct(int index) {
     setState(() {
       _products.removeAt(index);
@@ -40,11 +46,13 @@ class _MyAppState extends State<MyApp> {
       routes: {
         'productList': (BuildContext context) =>
             ProductsPage(_products, _deleteProduct),
-        'productAdmin': (BuildContext context) => ProductAdminPage(_addProduct, _products),
+        'productAdmin': (BuildContext context) =>
+            ProductAdminPage(_addProduct, _products, _updateProduct),
       },
       onUnknownRoute: (RouteSettings settings) {
         return MaterialPageRoute(
-            builder: (BuildContext context) => ProductAdminPage(_addProduct, _products));
+            builder: (BuildContext context) =>
+                ProductAdminPage(_addProduct, _products, _updateProduct));
       },
       onGenerateRoute: (RouteSettings settings) {
         final List<String> pathElements = settings.name.split('/');

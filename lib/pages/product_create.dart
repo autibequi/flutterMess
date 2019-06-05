@@ -9,9 +9,12 @@ bool _isNumeric(String str) {
 
 class ProductCreatePage extends StatefulWidget {
   final Function addProduct;
+  final Function updateProduct;
   final Map product;
+  final int index;
 
-  ProductCreatePage({this.addProduct, this.product});
+  ProductCreatePage(
+      {this.addProduct, this.product, this.index, this.updateProduct});
 
   @override
   _ProductCreatePageState createState() => _ProductCreatePageState();
@@ -111,9 +114,15 @@ class _ProductCreatePageState extends State<ProductCreatePage> {
                         if (!_formKey.currentState.validate()) {
                           return; // stops if validation is false
                         }
+
                         _formKey.currentState.save();
 
-                        widget.addProduct(newProduct);
+                        if (widget.product == null) {
+                          widget.addProduct(newProduct);
+                        } else {
+                          widget.updateProduct(widget.index, newProduct);
+                        }
+
                         Navigator.pushReplacementNamed(context, 'productList');
                       },
                     )

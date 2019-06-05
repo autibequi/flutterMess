@@ -7,9 +7,10 @@ import './product_list.dart';
 
 class ProductAdminPage extends StatelessWidget {
   final Function addProduct;
+  final Function updateProduct;
   final List<Map> products;
 
-  ProductAdminPage(this.addProduct, this.products);
+  ProductAdminPage(this.addProduct, this.products, this.updateProduct);
 
   @override
   Widget build(BuildContext context) {
@@ -34,8 +35,11 @@ class ProductAdminPage extends StatelessWidget {
           ),
           body: TabBarView(
             children: <Widget>[
-              ProductCreatePage(addProduct: addProduct),
-              ProductListPage(products),
+              ProductCreatePage(
+                addProduct: addProduct,
+                updateProduct: updateProduct,
+              ),
+              ProductListPage(products, updateProduct),
             ],
           ),
         ));

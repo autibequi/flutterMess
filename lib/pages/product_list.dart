@@ -3,8 +3,9 @@ import 'package:flutter_mess/pages/product_create.dart';
 
 class ProductListPage extends StatelessWidget {
   final List<Map> product;
+  final Function updateProduct;
 
-  ProductListPage(this.product);
+  ProductListPage(this.product, this.updateProduct);
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +19,10 @@ class ProductListPage extends StatelessWidget {
             onPressed: () {
               Navigator.of(context)
                   .push(MaterialPageRoute(builder: (BuildContext context) {
-                return ProductCreatePage(product: product[index]);
+                return ProductCreatePage(
+                    product: product[index],
+                    index: index,
+                    updateProduct: updateProduct);
               }));
             },
           ),
