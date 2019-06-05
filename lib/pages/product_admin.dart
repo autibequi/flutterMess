@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_mess/models/product.dart';
 
 import '../components/drawer.dart';
 
@@ -8,7 +9,7 @@ import './product_list.dart';
 class ProductAdminPage extends StatelessWidget {
   final Function addProduct;
   final Function updateProduct;
-  final List<Map> products;
+  final List<Product> products;
 
   ProductAdminPage(this.addProduct, this.products, this.updateProduct);
 

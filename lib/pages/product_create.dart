@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_mess/models/product.dart';
 
 bool _isNumeric(String str) {
   if (str == null) {
@@ -10,7 +11,7 @@ bool _isNumeric(String str) {
 class ProductCreatePage extends StatefulWidget {
   final Function addProduct;
   final Function updateProduct;
-  final Map product;
+  final Product product;
   final int index;
 
   ProductCreatePage(
@@ -30,7 +31,7 @@ class _ProductCreatePageState extends State<ProductCreatePage> {
   Widget _buildProductNameField() {
     return TextFormField(
         decoration: InputDecoration(labelText: 'Product Name'),
-        initialValue: widget.product == null ? '' : widget.product['title'],
+        initialValue: widget.product == null ? '' : widget.product.title,
         validator: (String value) {
           if (value.isEmpty || value.length < 5) {
             return 'Title is required';
@@ -43,8 +44,7 @@ class _ProductCreatePageState extends State<ProductCreatePage> {
 
   Widget _buildProductDescriptionField() {
     return TextFormField(
-        initialValue:
-            widget.product == null ? '' : widget.product['description'],
+        initialValue: widget.product == null ? '' : widget.product.description,
         decoration: InputDecoration(
           labelText: 'Product Description',
         ),
@@ -62,7 +62,7 @@ class _ProductCreatePageState extends State<ProductCreatePage> {
   Widget _buildProductPriceField() {
     return TextFormField(
         initialValue:
-            widget.product == null ? '' : widget.product['price'].toString(),
+            widget.product == null ? '' : widget.product.price.toString(),
         decoration: InputDecoration(labelText: 'Product Price'),
         keyboardType: TextInputType.number,
         validator: (String value) {
@@ -116,11 +116,17 @@ class _ProductCreatePageState extends State<ProductCreatePage> {
                         }
 
                         _formKey.currentState.save();
+                        Product productToCreate = new Product(
+                          title: newProduct['title'],
+                          description: newProduct['description'],
+                          image: newProduct['image'],
+                          price: newProduct['price'],
+                        );
 
                         if (widget.product == null) {
-                          widget.addProduct(newProduct);
+                          widget.addProduct(productToCreate);
                         } else {
-                          widget.updateProduct(widget.index, newProduct);
+                          widget.updateProduct(widget.index, productToCreate);
                         }
 
                         Navigator.pushReplacementNamed(context, 'productList');

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_mess/models/product.dart';
 
 class Products extends StatelessWidget {
-  final List<Map> products;
+  final List<Product> products;
   final Function deleteProduct;
 
   Products(this.products, this.deleteProduct);
@@ -10,14 +11,14 @@ class Products extends StatelessWidget {
     return Card(
       child: Column(
         children: <Widget>[
-          Image.asset(products[index]['image']),
+          Image.asset(products[index].image),
           Container(
               padding: EdgeInsets.all(10.0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   Text(
-                    products[index]['title'],
+                    products[index].title,
                     style: TextStyle(
                       fontSize: 26.0,
                       fontWeight: FontWeight.bold,
@@ -33,7 +34,7 @@ class Products extends StatelessWidget {
                     decoration: BoxDecoration(
                         color: Colors.blueGrey.shade200,
                         borderRadius: BorderRadius.circular(5.0)),
-                    child: Text('R\$ ${products[index]['price'].toString()}'),
+                    child: Text('R\$ ${products[index].title.toString()}'),
                   )
                 ],
               )),
@@ -47,7 +48,7 @@ class Products extends StatelessWidget {
                 ),
                 borderRadius: BorderRadius.circular(10.0),
               )),
-          Text(products[index]['description']),
+          Text(products[index].description),
           ButtonBar(
             alignment: MainAxisAlignment.center,
             children: <Widget>[

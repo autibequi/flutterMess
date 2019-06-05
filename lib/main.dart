@@ -5,6 +5,7 @@ import './pages/auth.dart';
 import './pages/products.dart';
 import './pages/product.dart';
 import './pages/product_admin.dart';
+import './models/product.dart';
 
 // Instantiate the Main AppClass
 void main() => runApp(MyApp());
@@ -16,15 +17,15 @@ class MyApp extends StatefulWidget {
 
 // Main App Class
 class _MyAppState extends State<MyApp> {
-  List<Map> _products = [];
+  List<Product> _products = [];
 
-  void _addProduct(Map product) {
+  void _addProduct(Product product) {
     setState(() {
       _products.add(product);
     });
   }
 
-  void _updateProduct(int index, Map product) {
+  void _updateProduct(int index, Product product) {
     setState(() {
       _products[index] = product;
     });

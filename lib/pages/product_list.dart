@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_mess/models/product.dart';
 import 'package:flutter_mess/pages/product_create.dart';
 
 class ProductListPage extends StatelessWidget {
-  final List<Map> product;
+  final List<Product> product;
   final Function updateProduct;
 
   ProductListPage(this.product, this.updateProduct);
@@ -12,7 +13,7 @@ class ProductListPage extends StatelessWidget {
     return ListView.builder(
       itemBuilder: (BuildContext context, int index) {
         return Dismissible(
-            key: Key(product[index]['title']),
+            key: Key(product[index].title),
             background: Container(
               color: Colors.red,
             ),
@@ -26,9 +27,9 @@ class ProductListPage extends StatelessWidget {
               children: <Widget>[
                 ListTile(
                   leading: CircleAvatar(
-                      backgroundImage: AssetImage(product[index]['image'])),
-                  title: Text(product[index]['title']),
-                  subtitle: Text('R\$ ${product[index]['price']}'),
+                      backgroundImage: AssetImage(product[index].image)),
+                  title: Text(product[index].title),
+                  subtitle: Text('R\$ ${product[index].price}'),
                   trailing: IconButton(
                     icon: Icon(Icons.edit),
                     onPressed: () {
