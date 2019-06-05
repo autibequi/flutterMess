@@ -13,6 +13,15 @@ class ProductListPage extends StatelessWidget {
       itemBuilder: (BuildContext context, int index) {
         return Dismissible(
             key: Key(product[index]['title']),
+            background: Container(
+              color: Colors.red,
+            ),
+            onDismissed: (DismissDirection direction) {
+              if (direction == DismissDirection.startToEnd) {
+                // TODO: Delete Item
+                print('should be deleting something here');
+              }
+            },
             child: Column(
               children: <Widget>[
                 ListTile(
