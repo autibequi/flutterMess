@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 
 bool _isNumeric(String str) {
@@ -11,8 +9,9 @@ bool _isNumeric(String str) {
 
 class ProductCreatePage extends StatefulWidget {
   final Function addProduct;
+  final Map product;
 
-  ProductCreatePage(this.addProduct);
+  ProductCreatePage({this.addProduct, this.product});
 
   @override
   _ProductCreatePageState createState() => _ProductCreatePageState();
@@ -28,6 +27,7 @@ class _ProductCreatePageState extends State<ProductCreatePage> {
   Widget _buildProductNameField() {
     return TextFormField(
         decoration: InputDecoration(labelText: 'Product Name'),
+        initialValue: widget.product == null ? '' : widget.product['title'],
         validator: (String value) {
           if (value.isEmpty || value.length < 5) {
             return 'Title is required';
@@ -40,6 +40,8 @@ class _ProductCreatePageState extends State<ProductCreatePage> {
 
   Widget _buildProductDescriptionField() {
     return TextFormField(
+        initialValue:
+            widget.product == null ? '' : widget.product['description'],
         decoration: InputDecoration(
           labelText: 'Product Description',
         ),
@@ -56,6 +58,8 @@ class _ProductCreatePageState extends State<ProductCreatePage> {
 
   Widget _buildProductPriceField() {
     return TextFormField(
+        initialValue:
+            widget.product == null ? '' : widget.product['price'].toString(),
         decoration: InputDecoration(labelText: 'Product Price'),
         keyboardType: TextInputType.number,
         validator: (String value) {
@@ -83,7 +87,7 @@ class _ProductCreatePageState extends State<ProductCreatePage> {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
+    Widget PageItself = GestureDetector(
         onTap: () {
           FocusScope.of(context).requestFocus(FocusNode());
         },
@@ -115,5 +119,13 @@ class _ProductCreatePageState extends State<ProductCreatePage> {
                     )
                   ],
                 ))));
+    if (widget.product == null) {
+      return PageItself;
+    }
+    return Scaffold(
+        appBar: AppBar(
+          title: Text('Edit Mode'),
+        ),
+        body: PageItself);
   }
 }
