@@ -1,24 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mess/models/product.dart';
+import 'package:flutter_mess/scoped-models/product.dart';
+import 'package:scoped_model/scoped_model.dart';
 
 class Products extends StatelessWidget {
-  final List<Product> products;
-  final Function deleteProduct;
+  final List<Product> products = [];
 
-  Products(this.products, this.deleteProduct);
-
-  Widget _buildProductItem(BuildContext context, int index) {
+  Widget _buildProductItem(Product product) {
     return Card(
       child: Column(
         children: <Widget>[
-          Image.asset(products[index].image),
+          Image.asset(product.image),
           Container(
               padding: EdgeInsets.all(10.0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   Text(
-                    products[index].title,
+                    product.title,
                     style: TextStyle(
                       fontSize: 26.0,
                       fontWeight: FontWeight.bold,
@@ -34,7 +33,7 @@ class Products extends StatelessWidget {
                     decoration: BoxDecoration(
                         color: Colors.blueGrey.shade200,
                         borderRadius: BorderRadius.circular(5.0)),
-                    child: Text('R\$ ${products[index].title.toString()}'),
+                    child: Text('R\$ ${product.title.toString()}'),
                   )
                 ],
               )),
@@ -48,19 +47,20 @@ class Products extends StatelessWidget {
                 ),
                 borderRadius: BorderRadius.circular(10.0),
               )),
-          Text(products[index].description),
+          Text(product.description),
           ButtonBar(
             alignment: MainAxisAlignment.center,
             children: <Widget>[
-              IconButton(
-                  icon: Icon(Icons.info),
-                  onPressed: () => Navigator.pushNamed<bool>(
-                              context, '/product/' + index.toString())
-                          .then((bool value) {
-                        if (value) {
-                          deleteProduct(index);
-                        }
-                      })),
+              // TODO: FIX IT
+              // IconButton(
+              //     icon: Icon(Icons.info),
+              //     onPressed: () => Navigator.pushNamed<bool>(
+              //                 context, '/product/' + index.toString())
+              //             .then((bool value) {
+              //           if (value) {
+              //             product.deleteProduct(index);
+              //           }
+              //         })),
               IconButton(
                 color: Colors.red,
                 icon: Icon(Icons.favorite_border),
@@ -73,11 +73,12 @@ class Products extends StatelessWidget {
     );
   }
 
-  Widget _buildProductList() {
+  Widget _buildProductList(List<Product> products) {
     Widget productCards;
     if (products.length > 0) {
       productCards = ListView.builder(
-        itemBuilder: _buildProductItem,
+        itemBuilder: (BuildContext context, int index) =>
+            _buildProductItem(products[index]),
         itemCount: products.length,
       );
     } else {
@@ -89,6 +90,10 @@ class Products extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     print('[Products Widget] build()');
-    return _buildProductList();
+    return ScopedModelDescendant<ProductModel>(
+      builder: (BuildContext context, Widget child, ProductModel model) {
+        return _buildProductList(model.products);
+      },
+    );
   }
 }

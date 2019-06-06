@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mess/models/product.dart';
+import 'package:flutter_mess/scoped-models/product.dart';
+import 'package:scoped_model/scoped_model.dart';
 
 bool _isNumeric(String str) {
   if (str == null) {
@@ -88,6 +90,38 @@ class _ProductCreatePageState extends State<ProductCreatePage> {
     );
   }
 
+  Widget _buildSumitbutton() {
+    return ScopedModelDescendant<ProductModel>(
+      builder: (BuildContext context, Widget child, ProductModel model) {
+        return RaisedButton(
+          color: Theme.of(context).primaryColor,
+          child: Text('Submit'),
+          onPressed: () {
+            if (!_formKey.currentState.validate()) {
+              return; // stops if validation is false
+            }
+
+            _formKey.currentState.save();
+            Product productToCreate = new Product(
+              title: newProduct['title'],
+              description: newProduct['description'],
+              image: newProduct['image'],
+              price: newProduct['price'],
+            );
+
+            if (widget.product == null) {
+              model.addProduct(productToCreate);
+            } else {
+              model.updateProduct(widget.index, productToCreate);
+            }
+
+            Navigator.pushReplacementNamed(context, 'productList');
+          },
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     Widget PageItself = GestureDetector(
@@ -107,31 +141,7 @@ class _ProductCreatePageState extends State<ProductCreatePage> {
                     SizedBox(
                       height: 20.0,
                     ),
-                    RaisedButton(
-                      color: Theme.of(context).primaryColor,
-                      child: Text('Submit'),
-                      onPressed: () {
-                        if (!_formKey.currentState.validate()) {
-                          return; // stops if validation is false
-                        }
-
-                        _formKey.currentState.save();
-                        Product productToCreate = new Product(
-                          title: newProduct['title'],
-                          description: newProduct['description'],
-                          image: newProduct['image'],
-                          price: newProduct['price'],
-                        );
-
-                        if (widget.product == null) {
-                          widget.addProduct(productToCreate);
-                        } else {
-                          widget.updateProduct(widget.index, productToCreate);
-                        }
-
-                        Navigator.pushReplacementNamed(context, 'productList');
-                      },
-                    )
+                    _buildSumitbutton(),
                   ],
                 ))));
     if (widget.product == null) {
