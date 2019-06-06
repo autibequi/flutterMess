@@ -1,58 +1,65 @@
 import 'package:flutter/material.dart';
 
-import 'package:flutter_mess/pages/auth.dart';
-
-import 'package:flutter_mess/pages/products.dart';
-import 'package:flutter_mess/pages/product.dart';
-import 'package:flutter_mess/pages/product_admin.dart';
-import 'package:flutter_mess/models/product.dart';
-import 'package:flutter_mess/scoped-models/product.dart';
-
 import 'package:scoped_model/scoped_model.dart';
+// import 'package:flutter/rendering.dart';
 
-// Instantiate the Main AppClass
-void main() => runApp(MyApp());
+import './pages/auth.dart';
+import './pages/products_admin.dart';
+import './pages/products.dart';
+import './pages/product.dart';
+import './scoped-models/main.dart';
+
+void main() {
+  // debugPaintSizeEnabled = true;
+  // debugPaintBaselinesEnabled = true;
+  // debugPaintPointersEnabled = true;
+  runApp(MyApp());
+}
 
 class MyApp extends StatefulWidget {
   @override
-  _MyAppState createState() => _MyAppState();
+  State<StatefulWidget> createState() {
+    return _MyAppState();
+  }
 }
 
-// Main App Class
 class _MyAppState extends State<MyApp> {
-  List<Product> _products = [];
-
   @override
   Widget build(BuildContext context) {
-    return ScopedModel<ProductModel>(
-        model: ProductModel(),
-        child: MaterialApp(
-          theme: ThemeData(
-            primarySwatch: Colors.purple,
-          ),
-          home: AuthPage(),
-          routes: {
-            'productList': (BuildContext context) => ProductsPage(),
-            'productAdmin': (BuildContext context) => ProductAdminPage(),
-          },
-          onUnknownRoute: (RouteSettings settings) {
-            return MaterialPageRoute(
-                builder: (BuildContext context) => AuthPage());
-          },
-          onGenerateRoute: (RouteSettings settings) {
-            final List<String> pathElements = settings.name.split('/');
-
-            if (pathElements[0] != '') {
-              return null;
-            }
-
-            if (pathElements[1] == 'product') {
-              final int index = int.parse(pathElements[2]);
-              return MaterialPageRoute<bool>(
-                builder: (BuildContext context) => ProductPage(null, null),
-              );
-            }
-          },
-        ));
+    return ScopedModel<MainModel>(
+      model: MainModel(),
+      child: MaterialApp(
+        // debugShowMaterialGrid: true,
+        theme: ThemeData(
+            brightness: Brightness.light,
+            primarySwatch: Colors.deepOrange,
+            accentColor: Colors.deepPurple,
+            buttonColor: Colors.deepPurple),
+        // home: AuthPage(),
+        routes: {
+          '/': (BuildContext context) => AuthPage(),
+          '/products': (BuildContext context) => ProductsPage(),
+          '/admin': (BuildContext context) => ProductsAdminPage(),
+        },
+        onGenerateRoute: (RouteSettings settings) {
+          final List<String> pathElements = settings.name.split('/');
+          if (pathElements[0] != '') {
+            return null;
+          }
+          if (pathElements[1] == 'product') {
+            final int index = int.parse(pathElements[2]);
+            return MaterialPageRoute<bool>(
+              builder: (BuildContext context) =>
+                  ProductPage(index),
+            );
+          }
+          return null;
+        },
+        onUnknownRoute: (RouteSettings settings) {
+          return MaterialPageRoute(
+              builder: (BuildContext context) => ProductsPage());
+        },
+      ),
+    );
   }
 }
